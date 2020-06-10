@@ -10,6 +10,7 @@ import { AppRoutingModule } from "../app/app.routing.module";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { APP_BASE_HREF } from "@angular/common";
 import { withA11y } from "@storybook/addon-a11y";
+import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
 import {action} from '@storybook/addon-actions';
 import { withKnobs, text, boolean, date, radios } from '@storybook/addon-knobs';
 import { linkTo } from "@storybook/addon-links";
