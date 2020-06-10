@@ -17,6 +17,7 @@
               id="email"
               class="form-control"
               formControlName="email"
+              value={{email}}
             />
             <span
               *ngIf="
@@ -34,19 +35,20 @@
               id="password"
               class="form-control"
               formControlName="password"
+              value={{password}}
             />
           </div>
           <button
             class="btn btn-primary btn-block"
             type="submit"
-            [disabled]="!signUpForm.valid"
             style="cursor: pointer;"
+            (click)="login()"
           >
             LogIn
           </button>
         </form>
         <p style="text-align: center;">
-          Not Registered yet?<a [routerLink]="['/signup']">Sign Up!</a>
+          Not Registered yet?<a [routerLink]="['/signup']" (click)="register()">Sign Up!</a>
         </p>
       </div>
     </div>

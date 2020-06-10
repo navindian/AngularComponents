@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Input, EventEmitter, Output } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { AuthService } from "../auth-service/auth.service";
 import { ActivatedRoute, Router } from "@angular/router";
@@ -9,6 +9,22 @@ import { ActivatedRoute, Router } from "@angular/router";
   styleUrls: ["./log-in.component.css"],
 })
 export class LogInComponent implements OnInit {
+  @Input() email: string;
+
+  @Input() password: string;
+
+  @Output() loginEvent: EventEmitter <string> = new EventEmitter();
+
+  @Output() registerEvent: EventEmitter <string> = new EventEmitter();
+
+  login() {
+    this.loginEvent.emit('Login Successfull');
+  };
+
+  register() {
+    this.registerEvent.emit('Navigate to register component');
+  }
+
   signUpForm: FormGroup;
   isLoading: Boolean = false;
   error: string = null;

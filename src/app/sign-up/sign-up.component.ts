@@ -1,7 +1,8 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { AuthService } from "../auth-service/auth.service";
 import { Router } from "@angular/router";
+import RadiosType from "@storybook/addon-knobs/dist/components/types/Radio";
 
 @Component({
   selector: "app-sign-up",
@@ -9,6 +10,29 @@ import { Router } from "@angular/router";
   styleUrls: ["./sign-up.component.css"],
 })
 export class SignUpComponent implements OnInit {
+
+  @Input() name: string;
+
+  @Input() email: string;
+
+  @Input() password: string;
+
+  @Input() date: Date;
+
+  @Input() gender: string;
+
+  @Output() signUpEvent: EventEmitter <string> = new EventEmitter();
+
+  @Output() loginEvent: EventEmitter<string> = new EventEmitter();
+
+  SignUp() {
+    this.signUpEvent.emit('Registration Successfull');
+  };
+
+  login() {
+    this.loginEvent.emit('Navigate to login component');
+  };
+
   genders = ["Male", "Female"];
   signUpForm: FormGroup;
   isLoading: Boolean = false;

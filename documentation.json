@@ -1,0 +1,1440 @@
+{
+    "pipes": [],
+    "interfaces": [
+        {
+            "name": "AuthResponseData",
+            "id": "interface-AuthResponseData-c5ced04067366f9a88028763da20f98a",
+            "file": "src/app/auth-service/auth.service.ts",
+            "type": "interface",
+            "sourceCode": "import { Injectable } from \"@angular/core\";\r\nimport { HttpClient, HttpErrorResponse } from \"@angular/common/http\";\r\nimport { throwError } from \"rxjs\";\r\nimport { catchError, tap } from \"rxjs/operators\";\r\n\r\nexport interface AuthResponseData {\r\n  kind: string;\r\n  idToken: string;\r\n  email: string;\r\n  refreshToken: string;\r\n  expiresIn: string;\r\n  localId: string;\r\n  registered?: boolean;\r\n}\r\n\r\n@Injectable({ providedIn: \"root\" })\r\nexport class AuthService {\r\n  constructor(private http: HttpClient) {}\r\n\r\n  //connecting to firebase API\r\n  signup(email: string, password: string) {\r\n    return this.http\r\n      .post<AuthResponseData>(\r\n        \"https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyA-AsE58E63Ts_46gL8FYMsMehIhDTy5Ng\",\r\n        {\r\n          email: email,\r\n          password: password,\r\n          returnSecureToken: true,\r\n        }\r\n      )\r\n      .pipe(catchError(this.handleError));\r\n  }\r\n\r\n  login(email: string, password: string) {\r\n    return this.http\r\n      .post<AuthResponseData>(\r\n        \"https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyA-AsE58E63Ts_46gL8FYMsMehIhDTy5Ng\",\r\n        {\r\n          email: email,\r\n          password: password,\r\n          returnSecureToken: true,\r\n        }\r\n      )\r\n      .pipe(\r\n        catchError((errorRes) => {\r\n          let errorMessage = \"An unknown error occurred!\";\r\n          if (!errorRes.error || !errorRes.error.error) {\r\n            return throwError(errorMessage);\r\n          }\r\n          switch (errorRes.error.error.message) {\r\n            case \"EMAIL_EXISTS\":\r\n              errorMessage = \"This email exists already\";\r\n              break;\r\n            case \"EMAIL_NOT_FOUND\":\r\n              errorMessage = \"This email does not exist.\";\r\n              break;\r\n            case \"INVALID_PASSWORD\":\r\n              errorMessage = \"This password is not correct.\";\r\n              break;\r\n          }\r\n          return throwError(errorMessage);\r\n        })\r\n      );\r\n  }\r\n\r\n  private handleError(errorRes: HttpErrorResponse) {\r\n    let errorMessage = \"An unknown error occurred!\";\r\n    if (!errorRes.error || !errorRes.error.error) {\r\n      return throwError(errorMessage);\r\n    }\r\n    switch (errorRes.error.error.message) {\r\n      case \"EMAIL_EXISTS\":\r\n        errorMessage = \"This email exists already\";\r\n        break;\r\n      case \"EMAIL_NOT_FOUND\":\r\n        errorMessage = \"This email does not exist.\";\r\n        break;\r\n      case \"INVALID_PASSWORD\":\r\n        errorMessage = \"This password is not correct.\";\r\n        break;\r\n    }\r\n    return throwError(errorMessage);\r\n  }\r\n}\r\n",
+            "properties": [
+                {
+                    "name": "email",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 9
+                },
+                {
+                    "name": "expiresIn",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 11
+                },
+                {
+                    "name": "idToken",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 8
+                },
+                {
+                    "name": "kind",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 7
+                },
+                {
+                    "name": "localId",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 12
+                },
+                {
+                    "name": "refreshToken",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 10
+                },
+                {
+                    "name": "registered",
+                    "type": "boolean",
+                    "optional": true,
+                    "description": "",
+                    "line": 13
+                }
+            ],
+            "indexSignatures": [],
+            "kind": 150,
+            "methods": []
+        }
+    ],
+    "injectables": [
+        {
+            "name": "AuthService",
+            "id": "injectable-AuthService-c5ced04067366f9a88028763da20f98a",
+            "file": "src/app/auth-service/auth.service.ts",
+            "properties": [],
+            "methods": [
+                {
+                    "name": "handleError",
+                    "args": [
+                        {
+                            "name": "errorRes",
+                            "type": "HttpErrorResponse"
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "any",
+                    "typeParameters": [],
+                    "line": 66,
+                    "modifierKind": [
+                        112
+                    ],
+                    "jsdoctags": [
+                        {
+                            "name": "errorRes",
+                            "type": "HttpErrorResponse",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "login",
+                    "args": [
+                        {
+                            "name": "email",
+                            "type": "string"
+                        },
+                        {
+                            "name": "password",
+                            "type": "string"
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "any",
+                    "typeParameters": [],
+                    "line": 34,
+                    "jsdoctags": [
+                        {
+                            "name": "email",
+                            "type": "string",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        },
+                        {
+                            "name": "password",
+                            "type": "string",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "signup",
+                    "args": [
+                        {
+                            "name": "email",
+                            "type": "string"
+                        },
+                        {
+                            "name": "password",
+                            "type": "string"
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "any",
+                    "typeParameters": [],
+                    "line": 21,
+                    "jsdoctags": [
+                        {
+                            "name": "email",
+                            "type": "string",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        },
+                        {
+                            "name": "password",
+                            "type": "string",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "description": "",
+            "sourceCode": "import { Injectable } from \"@angular/core\";\r\nimport { HttpClient, HttpErrorResponse } from \"@angular/common/http\";\r\nimport { throwError } from \"rxjs\";\r\nimport { catchError, tap } from \"rxjs/operators\";\r\n\r\nexport interface AuthResponseData {\r\n  kind: string;\r\n  idToken: string;\r\n  email: string;\r\n  refreshToken: string;\r\n  expiresIn: string;\r\n  localId: string;\r\n  registered?: boolean;\r\n}\r\n\r\n@Injectable({ providedIn: \"root\" })\r\nexport class AuthService {\r\n  constructor(private http: HttpClient) {}\r\n\r\n  //connecting to firebase API\r\n  signup(email: string, password: string) {\r\n    return this.http\r\n      .post<AuthResponseData>(\r\n        \"https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyA-AsE58E63Ts_46gL8FYMsMehIhDTy5Ng\",\r\n        {\r\n          email: email,\r\n          password: password,\r\n          returnSecureToken: true,\r\n        }\r\n      )\r\n      .pipe(catchError(this.handleError));\r\n  }\r\n\r\n  login(email: string, password: string) {\r\n    return this.http\r\n      .post<AuthResponseData>(\r\n        \"https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyA-AsE58E63Ts_46gL8FYMsMehIhDTy5Ng\",\r\n        {\r\n          email: email,\r\n          password: password,\r\n          returnSecureToken: true,\r\n        }\r\n      )\r\n      .pipe(\r\n        catchError((errorRes) => {\r\n          let errorMessage = \"An unknown error occurred!\";\r\n          if (!errorRes.error || !errorRes.error.error) {\r\n            return throwError(errorMessage);\r\n          }\r\n          switch (errorRes.error.error.message) {\r\n            case \"EMAIL_EXISTS\":\r\n              errorMessage = \"This email exists already\";\r\n              break;\r\n            case \"EMAIL_NOT_FOUND\":\r\n              errorMessage = \"This email does not exist.\";\r\n              break;\r\n            case \"INVALID_PASSWORD\":\r\n              errorMessage = \"This password is not correct.\";\r\n              break;\r\n          }\r\n          return throwError(errorMessage);\r\n        })\r\n      );\r\n  }\r\n\r\n  private handleError(errorRes: HttpErrorResponse) {\r\n    let errorMessage = \"An unknown error occurred!\";\r\n    if (!errorRes.error || !errorRes.error.error) {\r\n      return throwError(errorMessage);\r\n    }\r\n    switch (errorRes.error.error.message) {\r\n      case \"EMAIL_EXISTS\":\r\n        errorMessage = \"This email exists already\";\r\n        break;\r\n      case \"EMAIL_NOT_FOUND\":\r\n        errorMessage = \"This email does not exist.\";\r\n        break;\r\n      case \"INVALID_PASSWORD\":\r\n        errorMessage = \"This password is not correct.\";\r\n        break;\r\n    }\r\n    return throwError(errorMessage);\r\n  }\r\n}\r\n",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "args": [
+                    {
+                        "name": "http",
+                        "type": "HttpClient"
+                    }
+                ],
+                "line": 17,
+                "jsdoctags": [
+                    {
+                        "name": "http",
+                        "type": "HttpClient",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "type": "injectable"
+        }
+    ],
+    "classes": [
+        {
+            "name": "AppPage",
+            "id": "class-AppPage-55e83f07317c006af4bc0c01ab52e66f",
+            "file": "e2e/src/app.po.ts",
+            "type": "class",
+            "sourceCode": "import { browser, by, element } from 'protractor';\r\n\r\nexport class AppPage {\r\n  navigateTo() {\r\n    return browser.get('/');\r\n  }\r\n\r\n  getParagraphText() {\r\n    return element(by.css('app-root h1')).getText();\r\n  }\r\n}\r\n",
+            "properties": [],
+            "methods": [
+                {
+                    "name": "getParagraphText",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "any",
+                    "typeParameters": [],
+                    "line": 8
+                },
+                {
+                    "name": "navigateTo",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "any",
+                    "typeParameters": [],
+                    "line": 4
+                }
+            ],
+            "indexSignatures": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "hostBindings": [],
+            "hostListeners": []
+        }
+    ],
+    "directives": [],
+    "components": [
+        {
+            "name": "AppComponent",
+            "id": "component-AppComponent-3101fb3c669572a0425f90912399fece",
+            "file": "src/app/app.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-root",
+            "styleUrls": [
+                "./app.component.css"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./app.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 9
+                }
+            ],
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "",
+            "type": "component",
+            "sourceCode": "import { Component, OnInit } from \"@angular/core\";\r\n\r\n@Component({\r\n  selector: \"app-root\",\r\n  templateUrl: \"./app.component.html\",\r\n  styleUrls: [\"./app.component.css\"],\r\n})\r\nexport class AppComponent implements OnInit {\r\n  ngOnInit() {}\r\n}\r\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": ".container {\r\n  margin-top: 30px;\r\n}\r\n",
+                    "styleUrl": "./app.component.css"
+                }
+            ],
+            "stylesData": "",
+            "implements": [
+                "OnInit"
+            ],
+            "templateData": "<router-outlet></router-outlet>\r\n"
+        },
+        {
+            "name": "LoadingSpinnerComponent",
+            "id": "component-LoadingSpinnerComponent-b9f84d991581dd9550abd18697827310",
+            "file": "src/app/shared/loading-spinner.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-loading-spinner",
+            "styleUrls": [
+                "./loading-spinner.component.css"
+            ],
+            "styles": [],
+            "template": "<div class=\"lds-spinner\">    <div></div>\n    <div></div>\n    <div></div>\n    <div></div>\n    <div></div>\n    <div></div>\n    <div></div>\n    <div></div>\n    <div></div>\n    <div></div>\n    <div></div>\n    <div></div>\n  </div>",
+            "templateUrl": [],
+            "viewProviders": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "",
+            "type": "component",
+            "sourceCode": "import { Component } from \"@angular/core\";\r\n\r\n@Component({\r\n  selector: \"app-loading-spinner\",\r\n  template: `<div class=\"lds-spinner\">\r\n    <div></div>\r\n    <div></div>\r\n    <div></div>\r\n    <div></div>\r\n    <div></div>\r\n    <div></div>\r\n    <div></div>\r\n    <div></div>\r\n    <div></div>\r\n    <div></div>\r\n    <div></div>\r\n    <div></div>\r\n  </div>`,\r\n  styleUrls: [\"./loading-spinner.component.css\"],\r\n})\r\nexport class LoadingSpinnerComponent {}\r\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": ".lds-spinner {\r\n  color: rgba(12, 1, 1, 0.856);\r\n  display: inline-block;\r\n  position: relative;\r\n  width: 80px;\r\n  height: 80px;\r\n}\r\n.lds-spinner div {\r\n  transform-origin: 40px 40px;\r\n  animation: lds-spinner 1.2s linear infinite;\r\n}\r\n.lds-spinner div:after {\r\n  content: \" \";\r\n  display: block;\r\n  position: absolute;\r\n  top: 3px;\r\n  left: 37px;\r\n  width: 6px;\r\n  height: 18px;\r\n  border-radius: 20%;\r\n  background: rgba(12, 1, 1, 0.856);\r\n}\r\n.lds-spinner div:nth-child(1) {\r\n  transform: rotate(0deg);\r\n  animation-delay: -1.1s;\r\n}\r\n.lds-spinner div:nth-child(2) {\r\n  transform: rotate(30deg);\r\n  animation-delay: -1s;\r\n}\r\n.lds-spinner div:nth-child(3) {\r\n  transform: rotate(60deg);\r\n  animation-delay: -0.9s;\r\n}\r\n.lds-spinner div:nth-child(4) {\r\n  transform: rotate(90deg);\r\n  animation-delay: -0.8s;\r\n}\r\n.lds-spinner div:nth-child(5) {\r\n  transform: rotate(120deg);\r\n  animation-delay: -0.7s;\r\n}\r\n.lds-spinner div:nth-child(6) {\r\n  transform: rotate(150deg);\r\n  animation-delay: -0.6s;\r\n}\r\n.lds-spinner div:nth-child(7) {\r\n  transform: rotate(180deg);\r\n  animation-delay: -0.5s;\r\n}\r\n.lds-spinner div:nth-child(8) {\r\n  transform: rotate(210deg);\r\n  animation-delay: -0.4s;\r\n}\r\n.lds-spinner div:nth-child(9) {\r\n  transform: rotate(240deg);\r\n  animation-delay: -0.3s;\r\n}\r\n.lds-spinner div:nth-child(10) {\r\n  transform: rotate(270deg);\r\n  animation-delay: -0.2s;\r\n}\r\n.lds-spinner div:nth-child(11) {\r\n  transform: rotate(300deg);\r\n  animation-delay: -0.1s;\r\n}\r\n.lds-spinner div:nth-child(12) {\r\n  transform: rotate(330deg);\r\n  animation-delay: 0s;\r\n}\r\n@keyframes lds-spinner {\r\n  0% {\r\n    opacity: 1;\r\n  }\r\n  100% {\r\n    opacity: 0;\r\n  }\r\n}\r\n",
+                    "styleUrl": "./loading-spinner.component.css"
+                }
+            ],
+            "stylesData": ""
+        },
+        {
+            "name": "LogInComponent",
+            "id": "component-LogInComponent-3d6c37020cdbf8d5efb1458c8ebf8bc6",
+            "file": "src/app/log-in/log-in.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-log-in",
+            "styleUrls": [
+                "./log-in.component.css"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./log-in.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [
+                {
+                    "name": "email",
+                    "line": 12,
+                    "type": "string"
+                },
+                {
+                    "name": "password",
+                    "line": 14,
+                    "type": "string"
+                }
+            ],
+            "outputsClass": [
+                {
+                    "name": "loginEvent",
+                    "defaultValue": "new EventEmitter()",
+                    "line": 16,
+                    "type": "EventEmitter<string>"
+                },
+                {
+                    "name": "registerEvent",
+                    "defaultValue": "new EventEmitter()",
+                    "line": 18,
+                    "type": "EventEmitter<string>"
+                }
+            ],
+            "propertiesClass": [
+                {
+                    "name": "error",
+                    "defaultValue": "null",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 30
+                },
+                {
+                    "name": "isLoading",
+                    "defaultValue": "false",
+                    "type": "Boolean",
+                    "optional": false,
+                    "description": "",
+                    "line": 29
+                },
+                {
+                    "name": "signUpForm",
+                    "type": "FormGroup",
+                    "optional": false,
+                    "description": "",
+                    "line": 28
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "login",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 20
+                },
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 34
+                },
+                {
+                    "name": "onSubmit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 40
+                },
+                {
+                    "name": "register",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 24
+                }
+            ],
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "",
+            "type": "component",
+            "sourceCode": "import { Component, OnInit, Input, EventEmitter, Output } from \"@angular/core\";\r\nimport { FormGroup, FormControl, Validators } from \"@angular/forms\";\r\nimport { AuthService } from \"../auth-service/auth.service\";\r\nimport { ActivatedRoute, Router } from \"@angular/router\";\r\n\r\n@Component({\r\n  selector: \"app-log-in\",\r\n  templateUrl: \"./log-in.component.html\",\r\n  styleUrls: [\"./log-in.component.css\"],\r\n})\r\nexport class LogInComponent implements OnInit {\r\n  @Input() email: string;\r\n\r\n  @Input() password: string;\r\n\r\n  @Output() loginEvent: EventEmitter <string> = new EventEmitter();\r\n\r\n  @Output() registerEvent: EventEmitter <string> = new EventEmitter();\r\n\r\n  login() {\r\n    this.loginEvent.emit('Login Successfull');\r\n  };\r\n\r\n  register() {\r\n    this.registerEvent.emit('Navigate to register component');\r\n  }\r\n\r\n  signUpForm: FormGroup;\r\n  isLoading: Boolean = false;\r\n  error: string = null;\r\n  constructor(private authService: AuthService, private router: Router) {}\r\n\r\n  //reactive form approach\r\n  ngOnInit() {\r\n    this.signUpForm = new FormGroup({\r\n      email: new FormControl(null, [Validators.required, Validators.email]),\r\n      password: new FormControl(null),\r\n    });\r\n  }\r\n  onSubmit() {\r\n    if (!this.signUpForm.valid) {\r\n      return;\r\n    }\r\n    const email = this.signUpForm.value.email;\r\n    const password = this.signUpForm.value.password;\r\n    //console.log(this.signUpForm.value.userName);\r\n    this.isLoading = true;\r\n    this.authService.login(email, password).subscribe(\r\n      (data) => {\r\n        console.log(data);\r\n        this.isLoading = false;\r\n        this.router.navigate([\"/welcome\", \"loggedIn\"]);\r\n      },\r\n      (errorMessage: any) => {\r\n        console.log(errorMessage);\r\n        this.error = errorMessage;\r\n        this.isLoading = false;\r\n      }\r\n    );\r\n\r\n    this.signUpForm.reset();\r\n  }\r\n}\r\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": ".container {\r\n  margin-top: 30px;\r\n  margin-bottom: 30px;\r\n  margin-left: 30px;\r\n  margin-right: 30px;\r\n}\r\n\r\ninput.ng-invalid.ng-touched {\r\n  border: 1px solid red;\r\n}\r\n",
+                    "styleUrl": "./log-in.component.css"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "args": [
+                    {
+                        "name": "authService",
+                        "type": "AuthService"
+                    },
+                    {
+                        "name": "router",
+                        "type": "Router"
+                    }
+                ],
+                "line": 30,
+                "jsdoctags": [
+                    {
+                        "name": "authService",
+                        "type": "AuthService",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "router",
+                        "type": "Router",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "implements": [
+                "OnInit"
+            ],
+            "templateData": "<div class=\"container mr-5 ml-5\">\r\n  <div class=\"row\">\r\n    <div class=\"col-xs-12 col-md-4 col-md-offset-4\">\r\n      <div class=\"alert alert-danger\" *ngIf=\"error\">\r\n        <p>{{ error }}</p>\r\n      </div>\r\n      <div *ngIf=\"isLoading\" style=\"text-align: center;\">\r\n        <app-loading-spinner></app-loading-spinner>\r\n      </div>\r\n      <div *ngIf=\"!isLoading\">\r\n        <h1 style=\"text-align: center;\" class=\"text-primary\">Welcome</h1>\r\n        <form [formGroup]=\"signUpForm\" (ngSubmit)=\"onSubmit()\">\r\n          <div class=\"form-group\">\r\n            <label for=\"email\">Email</label>\r\n            <input\r\n              type=\"text\"\r\n              id=\"email\"\r\n              class=\"form-control\"\r\n              formControlName=\"email\"\r\n              value={{email}}\r\n            />\r\n            <span\r\n              *ngIf=\"\r\n                !signUpForm.get('email').valid &&\r\n                signUpForm.get('email').touched\r\n              \"\r\n              class=\"help-block\"\r\n              >Please enter a valid email!</span\r\n            >\r\n          </div>\r\n          <div class=\"form-group\">\r\n            <label for=\"password\">Password</label>\r\n            <input\r\n              type=\"password\"\r\n              id=\"password\"\r\n              class=\"form-control\"\r\n              formControlName=\"password\"\r\n              value={{password}}\r\n            />\r\n          </div>\r\n          <button\r\n            class=\"btn btn-primary btn-block\"\r\n            type=\"submit\"\r\n            style=\"cursor: pointer;\"\r\n            (click)=\"login()\"\r\n          >\r\n            LogIn\r\n          </button>\r\n        </form>\r\n        <p style=\"text-align: center;\">\r\n          Not Registered yet?<a [routerLink]=\"['/signup']\" (click)=\"register()\">Sign Up!</a>\r\n        </p>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
+        },
+        {
+            "name": "SignUpComponent",
+            "id": "component-SignUpComponent-08dd2ba2de775fc41267b22aae6882b1",
+            "file": "src/app/sign-up/sign-up.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-sign-up",
+            "styleUrls": [
+                "./sign-up.component.css"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./sign-up.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [
+                {
+                    "name": "date",
+                    "line": 20,
+                    "type": "Date"
+                },
+                {
+                    "name": "email",
+                    "line": 16,
+                    "type": "string"
+                },
+                {
+                    "name": "gender",
+                    "line": 22,
+                    "type": "string"
+                },
+                {
+                    "name": "name",
+                    "line": 14,
+                    "type": "string"
+                },
+                {
+                    "name": "password",
+                    "line": 18,
+                    "type": "string"
+                }
+            ],
+            "outputsClass": [
+                {
+                    "name": "loginEvent",
+                    "defaultValue": "new EventEmitter()",
+                    "line": 26,
+                    "type": "EventEmitter<string>"
+                },
+                {
+                    "name": "signUpEvent",
+                    "defaultValue": "new EventEmitter()",
+                    "line": 24,
+                    "type": "EventEmitter<string>"
+                }
+            ],
+            "propertiesClass": [
+                {
+                    "name": "error",
+                    "defaultValue": "null",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 39
+                },
+                {
+                    "name": "genders",
+                    "defaultValue": "[\"Male\", \"Female\"]",
+                    "type": "[]",
+                    "optional": false,
+                    "description": "",
+                    "line": 36
+                },
+                {
+                    "name": "isLoading",
+                    "defaultValue": "false",
+                    "type": "Boolean",
+                    "optional": false,
+                    "description": "",
+                    "line": 38
+                },
+                {
+                    "name": "signUpForm",
+                    "type": "FormGroup",
+                    "optional": false,
+                    "description": "",
+                    "line": 37
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "login",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 32
+                },
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 42
+                },
+                {
+                    "name": "onSubmit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 54
+                },
+                {
+                    "name": "SignUp",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 28
+                }
+            ],
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "",
+            "type": "component",
+            "sourceCode": "import { Component, OnInit, Input, Output, EventEmitter } from \"@angular/core\";\r\nimport { FormGroup, FormControl, Validators } from \"@angular/forms\";\r\nimport { AuthService } from \"../auth-service/auth.service\";\r\nimport { Router } from \"@angular/router\";\r\nimport RadiosType from \"@storybook/addon-knobs/dist/components/types/Radio\";\r\n\r\n@Component({\r\n  selector: \"app-sign-up\",\r\n  templateUrl: \"./sign-up.component.html\",\r\n  styleUrls: [\"./sign-up.component.css\"],\r\n})\r\nexport class SignUpComponent implements OnInit {\r\n\r\n  @Input() name: string;\r\n\r\n  @Input() email: string;\r\n\r\n  @Input() password: string;\r\n\r\n  @Input() date: Date;\r\n\r\n  @Input() gender: string;\r\n\r\n  @Output() signUpEvent: EventEmitter <string> = new EventEmitter();\r\n\r\n  @Output() loginEvent: EventEmitter<string> = new EventEmitter();\r\n\r\n  SignUp() {\r\n    this.signUpEvent.emit('Registration Successfull');\r\n  };\r\n\r\n  login() {\r\n    this.loginEvent.emit('Navigate to login component');\r\n  };\r\n\r\n  genders = [\"Male\", \"Female\"];\r\n  signUpForm: FormGroup;\r\n  isLoading: Boolean = false;\r\n  error: string = null;\r\n  constructor(private authService: AuthService, private router: Router) {}\r\n\r\n  ngOnInit() {\r\n    this.signUpForm = new FormGroup({\r\n      userName: new FormControl(null, Validators.required),\r\n      email: new FormControl(null, [Validators.required, Validators.email]),\r\n      password: new FormControl(null, [\r\n        Validators.required,\r\n        Validators.minLength(8),\r\n      ]),\r\n      dateOfBirth: new FormControl(null, Validators.required),\r\n      gender: new FormControl(\"Male\"),\r\n    });\r\n  }\r\n  onSubmit() {\r\n    if (!this.signUpForm.valid) {\r\n      return;\r\n    }\r\n    const email = this.signUpForm.value.email;\r\n    const password = this.signUpForm.value.password;\r\n    //console.log(this.signUpForm.value.userName);\r\n    this.isLoading = true;\r\n    this.authService.signup(email, password).subscribe(\r\n      (data) => {\r\n        console.log(data);\r\n        this.isLoading = false;\r\n        this.router.navigate([\"/welcome\", \"signedUp\"]);\r\n      },\r\n      (errorMessage: any) => {\r\n        console.log(errorMessage);\r\n        this.error = errorMessage;\r\n        this.isLoading = false;\r\n      }\r\n    );\r\n\r\n    this.signUpForm.reset();\r\n  }\r\n}\r\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": ".container {\r\n  margin-top: 30px;\r\n  margin-bottom: 30px;\r\n  margin-left: 30px;\r\n  margin-right: 30px;\r\n}\r\n\r\ninput.ng-invalid.ng-touched {\r\n  border: 1px solid red;\r\n}\r\n",
+                    "styleUrl": "./sign-up.component.css"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "args": [
+                    {
+                        "name": "authService",
+                        "type": "AuthService"
+                    },
+                    {
+                        "name": "router",
+                        "type": "Router"
+                    }
+                ],
+                "line": 39,
+                "jsdoctags": [
+                    {
+                        "name": "authService",
+                        "type": "AuthService",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "router",
+                        "type": "Router",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "implements": [
+                "OnInit"
+            ],
+            "templateData": "<div class=\"container\">\r\n  <div class=\"row\">\r\n    <div class=\"col-xs-12 col-md-4 col-md-offset-4\">\r\n      <div class=\"alert alert-danger\" *ngIf=\"error\">\r\n        <p>{{ error }}</p>\r\n      </div>\r\n      <div *ngIf=\"isLoading\" style=\"text-align: center;\">\r\n        <app-loading-spinner></app-loading-spinner>\r\n      </div>\r\n      <div *ngIf=\"!isLoading\">\r\n        <h1 style=\"text-align: center;\" class=\"text-primary\">Sign Up</h1>\r\n        <form [formGroup]=\"signUpForm\" (ngSubmit)=\"onSubmit()\">\r\n          <div class=\"form-group\">\r\n            <label for=\"username\">Name</label>\r\n            <input\r\n              type=\"text\"\r\n              id=\"username\"\r\n              class=\"form-control\"\r\n              formControlName=\"userName\"\r\n              value={{name}}\r\n            />\r\n          </div>\r\n          <div class=\"form-group\">\r\n            <label for=\"email\" mt-8>Email</label>\r\n            <input\r\n              type=\"text\"\r\n              id=\"email\"\r\n              class=\"form-control\"\r\n              formControlName=\"email\"\r\n              value={{email}}\r\n            />\r\n            <span\r\n              *ngIf=\"\r\n                !signUpForm.get('email').valid &&\r\n                signUpForm.get('email').touched\r\n              \"\r\n              class=\"help-block\"\r\n              >Please enter a valid email!</span\r\n            >\r\n          </div>\r\n          <div class=\"form-group\">\r\n            <label for=\"dateOfBirth\">Date Of Birth</label>\r\n            <input\r\n              type=\"date\"\r\n              id=\"dateOfBirth\"\r\n              class=\"form-control\"\r\n              formControlName=\"dateOfBirth\"\r\n              value={{date}}\r\n            />\r\n          </div>\r\n          <div class=\"form-group\">\r\n            <label for=\"password\">Password</label>\r\n            <input\r\n              type=\"password\"\r\n              id=\"password\"\r\n              class=\"form-control\"\r\n              formControlName=\"password\"\r\n              value={{password}}\r\n            />\r\n            <span\r\n              *ngIf=\"\r\n                !signUpForm.get('password').valid &&\r\n                signUpForm.get('password').touched\r\n              \"\r\n              class=\"help-block\"\r\n              >Password must of minimum 8 characters!</span\r\n            >\r\n          </div>\r\n\r\n          <div>\r\n            <label for=\"gender\">Gender</label>\r\n            <div class=\"radio\" *ngFor=\"let gender of genders\">\r\n              <label>\r\n                <input\r\n                  type=\"radio\"\r\n                  [value]=\"gender\"\r\n                  formControlName=\"gender\"\r\n                />{{ gender }}<i class=\"fab fa-facebook-square\"></i>\r\n              </label>\r\n            </div>\r\n          </div>\r\n          <button\r\n            class=\"btn btn-primary btn-block\"\r\n            type=\"submit\"\r\n            style=\"cursor: pointer;\"\r\n            (click)=\"SignUp()\"\r\n          >\r\n            Register\r\n          </button>\r\n        </form>\r\n        <p style=\"text-align: center;\">\r\n          Already have an account?<a [routerLink]=\"['/login']\" (click)=\"login()\">Log In</a>\r\n        </p>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
+        },
+        {
+            "name": "WelcomeComponent",
+            "id": "component-WelcomeComponent-32408303452487bc9ac6f79432bc4f4c",
+            "file": "src/app/welcome/welcome.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-welcome",
+            "styleUrls": [
+                "./welcome.component.css"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./welcome.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "isLoggedIn",
+                    "defaultValue": "false",
+                    "type": "Boolean",
+                    "optional": false,
+                    "description": "",
+                    "line": 11,
+                    "modifierKind": [
+                        112
+                    ]
+                },
+                {
+                    "name": "isSignedUp",
+                    "defaultValue": "false",
+                    "type": "Boolean",
+                    "optional": false,
+                    "description": "",
+                    "line": 12,
+                    "modifierKind": [
+                        112
+                    ]
+                },
+                {
+                    "name": "pathParam",
+                    "type": "String",
+                    "optional": false,
+                    "description": "",
+                    "line": 13,
+                    "modifierKind": [
+                        112
+                    ]
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 16
+                }
+            ],
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "",
+            "type": "component",
+            "sourceCode": "import { Component, OnInit } from \"@angular/core\";\r\nimport { ActivatedRoute, Router, Params } from \"@angular/router\";\r\nimport { FnParam } from \"@angular/compiler/src/output/output_ast\";\r\n\r\n@Component({\r\n  selector: \"app-welcome\",\r\n  templateUrl: \"./welcome.component.html\",\r\n  styleUrls: [\"./welcome.component.css\"],\r\n})\r\nexport class WelcomeComponent implements OnInit {\r\n  private isLoggedIn: Boolean = false;\r\n  private isSignedUp: Boolean = false;\r\n  private pathParam: String;\r\n  constructor(private rout: ActivatedRoute, private router: Router) {}\r\n\r\n  ngOnInit(): void {\r\n    this.rout.params.subscribe((params: Params) => {\r\n      this.pathParam = params[\"arg\"];\r\n      if (this.pathParam === \"loggedIn\") {\r\n        this.isLoggedIn = true;\r\n      } else if (this.pathParam === \"signedUp\") {\r\n        this.isSignedUp = true;\r\n      }\r\n    });\r\n  }\r\n}\r\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": ".container {\r\n  margin-top: 30px;\r\n  margin-bottom: 30px;\r\n  margin-left: 30px;\r\n  margin-right: 30px;\r\n}\r\n",
+                    "styleUrl": "./welcome.component.css"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "args": [
+                    {
+                        "name": "rout",
+                        "type": "ActivatedRoute"
+                    },
+                    {
+                        "name": "router",
+                        "type": "Router"
+                    }
+                ],
+                "line": 13,
+                "jsdoctags": [
+                    {
+                        "name": "rout",
+                        "type": "ActivatedRoute",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "router",
+                        "type": "Router",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "implements": [
+                "OnInit"
+            ],
+            "templateData": "<div class=\"container\" style=\"text-align: center;\">\r\n  <div class=\"col-xs-12\">\r\n    <h2 *ngIf=\"isLoggedIn\" style=\"text-align: center;\">\r\n      You are now logged in !\r\n    </h2>\r\n    <h2 *ngIf=\"isSignedUp\">\r\n      You have successfully registered. Please log in to continue.\r\n    </h2>\r\n    <hr />\r\n    <div style=\"text-align: center; font-size: large;\">\r\n      <a [routerLink]=\"['/login']\">Log In</a>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
+        }
+    ],
+    "modules": [
+        {
+            "name": "AppModule",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": [
+                        {
+                            "name": "AppComponent"
+                        },
+                        {
+                            "name": "LoadingSpinnerComponent"
+                        },
+                        {
+                            "name": "LogInComponent"
+                        },
+                        {
+                            "name": "SignUpComponent"
+                        },
+                        {
+                            "name": "WelcomeComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "imports",
+                    "elements": [
+                        {
+                            "name": "AppRoutingModule"
+                        }
+                    ]
+                },
+                {
+                    "type": "exports",
+                    "elements": []
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": [
+                        {
+                            "name": "AppComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        },
+        {
+            "name": "AppRoutingModule",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": []
+                },
+                {
+                    "type": "imports",
+                    "elements": []
+                },
+                {
+                    "type": "exports",
+                    "elements": []
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": []
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        }
+    ],
+    "miscellaneous": {
+        "variables": [
+            {
+                "name": "Backgrounds",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/0-SignUp.stories.ts",
+                "type": "",
+                "defaultValue": "() => ({\r\n  component: SignUpComponent,\r\n  props: {\r\n            name: text('Name', 'Sanket', 'General'),\r\n            email: text('Email', 'sanket@infy.com', 'General'),\r\n            date: date(label, defaultValue, groupID),\r\n            password: text('Password', 'sanket123', 'General'),\r\n            gender: radios(label1, options, defaultValue1, groupId),\r\n  }\r\n})"
+            },
+            {
+                "name": "context",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/test.ts",
+                "type": "",
+                "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/1-LogIn.stories.ts",
+                "type": "",
+                "defaultValue": "() => ({\r\n  component: LogInComponent,\r\n  props: {\r\n    email: text('Email','sanket@infy.com','General'),\r\n    password: text('Password', 'sanket123','General')\r\n  }\r\n})"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/0-SignUp.stories.ts",
+                "type": "",
+                "defaultValue": "() => ({\r\n  component: SignUpComponent,\r\n  props: {\r\n            name: text('Name', 'Sanket', 'General'),\r\n            email: text('Email', 'sanket@infy.com', 'General'),\r\n            date: date(label, defaultValue, groupID),\r\n            password: text('Password', 'sanket123', 'General'),\r\n            gender: radios(label1, options, defaultValue1, groupId)\r\n        }\r\n\r\n})"
+            },
+            {
+                "name": "defaultValue",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/0-SignUp.stories.ts",
+                "type": "",
+                "defaultValue": "new Date('Jan 20 1996')"
+            },
+            {
+                "name": "defaultValue1",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/0-SignUp.stories.ts",
+                "type": "string",
+                "defaultValue": "'male'"
+            },
+            {
+                "name": "environment",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/environments/environment.prod.ts",
+                "type": "object",
+                "defaultValue": "{\r\n  production: true\r\n}"
+            },
+            {
+                "name": "environment",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/environments/environment.ts",
+                "type": "object",
+                "defaultValue": "{\r\n  production: false\r\n}"
+            },
+            {
+                "name": "groupId",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/0-SignUp.stories.ts",
+                "type": "string",
+                "defaultValue": "'General'"
+            },
+            {
+                "name": "groupID",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/0-SignUp.stories.ts",
+                "type": "string",
+                "defaultValue": "'General'"
+            },
+            {
+                "name": "label",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/0-SignUp.stories.ts",
+                "type": "string",
+                "defaultValue": "'DOB'"
+            },
+            {
+                "name": "label1",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/0-SignUp.stories.ts",
+                "type": "string",
+                "defaultValue": "'Gender'"
+            },
+            {
+                "name": "Link",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/1-LogIn.stories.ts",
+                "type": "",
+                "defaultValue": "() => ({\r\n  component: LogInComponent,\r\n  props: {\r\n    email: text('Email','sanket@infy.com','General'),\r\n    password: text('Password', 'sanket123','General'),\r\n    registerEvent: linkTo('SignUp Component')\r\n  }\r\n})"
+            },
+            {
+                "name": "Link",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/0-SignUp.stories.ts",
+                "type": "",
+                "defaultValue": "() => ({\r\n  component: SignUpComponent,\r\n  props: {\r\n            name: text('Name', 'Sanket', 'General'),\r\n            email: text('Email', 'sanket@infy.com', 'General'),\r\n            date: date(label, defaultValue, groupID),\r\n            password: text('Password', 'sanket123', 'General'),\r\n            gender: radios(label1, options, defaultValue1, groupId),\r\n            signUpEvent: action('Sign Up Attempted'),\r\n            loginEvent: linkTo('Login Component')\r\n        }\r\n})"
+            },
+            {
+                "name": "options",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/0-SignUp.stories.ts",
+                "type": "object",
+                "defaultValue": "{\r\n  Male: 'male',\r\n  Female: 'female',\r\n  }"
+            },
+            {
+                "name": "require",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/test.ts",
+                "type": "any"
+            },
+            {
+                "name": "Submit",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/1-LogIn.stories.ts",
+                "type": "",
+                "defaultValue": "() => ({\r\n  component: LogInComponent,\r\n  props: {\r\n    email: text('Email','sanket@infy.com','General'),\r\n    password: text('Password', 'sanket123','General'),\r\n    loginEvent: action('Login Attempted')\r\n  }\r\n})"
+            },
+            {
+                "name": "Submit",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/0-SignUp.stories.ts",
+                "type": "",
+                "defaultValue": "() => ({\r\n  component: SignUpComponent,\r\n  props: {\r\n            name: text('Name', 'Sanket', 'General'),\r\n            email: text('Email', 'sanket@infy.com', 'General'),\r\n            date: date(label, defaultValue, groupID),\r\n            password: text('Password', 'sanket123', 'General'),\r\n            gender: radios(label1, options, defaultValue1, groupId),\r\n            signUpEvent: action('Sign Up Attempted')\r\n        }\r\n})"
+            }
+        ],
+        "functions": [],
+        "typealiases": [],
+        "enumerations": [],
+        "groupedVariables": {
+            "src/stories/0-SignUp.stories.ts": [
+                {
+                    "name": "Backgrounds",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/0-SignUp.stories.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\r\n  component: SignUpComponent,\r\n  props: {\r\n            name: text('Name', 'Sanket', 'General'),\r\n            email: text('Email', 'sanket@infy.com', 'General'),\r\n            date: date(label, defaultValue, groupID),\r\n            password: text('Password', 'sanket123', 'General'),\r\n            gender: radios(label1, options, defaultValue1, groupId),\r\n  }\r\n})"
+                },
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/0-SignUp.stories.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\r\n  component: SignUpComponent,\r\n  props: {\r\n            name: text('Name', 'Sanket', 'General'),\r\n            email: text('Email', 'sanket@infy.com', 'General'),\r\n            date: date(label, defaultValue, groupID),\r\n            password: text('Password', 'sanket123', 'General'),\r\n            gender: radios(label1, options, defaultValue1, groupId)\r\n        }\r\n\r\n})"
+                },
+                {
+                    "name": "defaultValue",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/0-SignUp.stories.ts",
+                    "type": "",
+                    "defaultValue": "new Date('Jan 20 1996')"
+                },
+                {
+                    "name": "defaultValue1",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/0-SignUp.stories.ts",
+                    "type": "string",
+                    "defaultValue": "'male'"
+                },
+                {
+                    "name": "groupId",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/0-SignUp.stories.ts",
+                    "type": "string",
+                    "defaultValue": "'General'"
+                },
+                {
+                    "name": "groupID",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/0-SignUp.stories.ts",
+                    "type": "string",
+                    "defaultValue": "'General'"
+                },
+                {
+                    "name": "label",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/0-SignUp.stories.ts",
+                    "type": "string",
+                    "defaultValue": "'DOB'"
+                },
+                {
+                    "name": "label1",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/0-SignUp.stories.ts",
+                    "type": "string",
+                    "defaultValue": "'Gender'"
+                },
+                {
+                    "name": "Link",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/0-SignUp.stories.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\r\n  component: SignUpComponent,\r\n  props: {\r\n            name: text('Name', 'Sanket', 'General'),\r\n            email: text('Email', 'sanket@infy.com', 'General'),\r\n            date: date(label, defaultValue, groupID),\r\n            password: text('Password', 'sanket123', 'General'),\r\n            gender: radios(label1, options, defaultValue1, groupId),\r\n            signUpEvent: action('Sign Up Attempted'),\r\n            loginEvent: linkTo('Login Component')\r\n        }\r\n})"
+                },
+                {
+                    "name": "options",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/0-SignUp.stories.ts",
+                    "type": "object",
+                    "defaultValue": "{\r\n  Male: 'male',\r\n  Female: 'female',\r\n  }"
+                },
+                {
+                    "name": "Submit",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/0-SignUp.stories.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\r\n  component: SignUpComponent,\r\n  props: {\r\n            name: text('Name', 'Sanket', 'General'),\r\n            email: text('Email', 'sanket@infy.com', 'General'),\r\n            date: date(label, defaultValue, groupID),\r\n            password: text('Password', 'sanket123', 'General'),\r\n            gender: radios(label1, options, defaultValue1, groupId),\r\n            signUpEvent: action('Sign Up Attempted')\r\n        }\r\n})"
+                }
+            ],
+            "src/test.ts": [
+                {
+                    "name": "context",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/test.ts",
+                    "type": "",
+                    "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)"
+                },
+                {
+                    "name": "require",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/test.ts",
+                    "type": "any"
+                }
+            ],
+            "src/stories/1-LogIn.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/1-LogIn.stories.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\r\n  component: LogInComponent,\r\n  props: {\r\n    email: text('Email','sanket@infy.com','General'),\r\n    password: text('Password', 'sanket123','General')\r\n  }\r\n})"
+                },
+                {
+                    "name": "Link",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/1-LogIn.stories.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\r\n  component: LogInComponent,\r\n  props: {\r\n    email: text('Email','sanket@infy.com','General'),\r\n    password: text('Password', 'sanket123','General'),\r\n    registerEvent: linkTo('SignUp Component')\r\n  }\r\n})"
+                },
+                {
+                    "name": "Submit",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/1-LogIn.stories.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\r\n  component: LogInComponent,\r\n  props: {\r\n    email: text('Email','sanket@infy.com','General'),\r\n    password: text('Password', 'sanket123','General'),\r\n    loginEvent: action('Login Attempted')\r\n  }\r\n})"
+                }
+            ],
+            "src/environments/environment.prod.ts": [
+                {
+                    "name": "environment",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/environments/environment.prod.ts",
+                    "type": "object",
+                    "defaultValue": "{\r\n  production: true\r\n}"
+                }
+            ],
+            "src/environments/environment.ts": [
+                {
+                    "name": "environment",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/environments/environment.ts",
+                    "type": "object",
+                    "defaultValue": "{\r\n  production: false\r\n}"
+                }
+            ]
+        },
+        "groupedFunctions": {},
+        "groupedEnumerations": {},
+        "groupedTypeAliases": {}
+    },
+    "routes": {
+        "name": "<root>",
+        "kind": "module",
+        "className": "AppModule",
+        "children": [
+            {
+                "name": "appRoutes",
+                "filename": "src/app/app.routing.module.ts",
+                "module": "AppRoutingModule",
+                "children": [
+                    {
+                        "path": "",
+                        "component": "LogInComponent"
+                    },
+                    {
+                        "path": "login",
+                        "component": "LogInComponent"
+                    },
+                    {
+                        "path": "signup",
+                        "component": "SignUpComponent"
+                    },
+                    {
+                        "path": "welcome/:arg",
+                        "component": "WelcomeComponent"
+                    },
+                    {
+                        "path": "**",
+                        "redirectTo": "albums"
+                    }
+                ],
+                "kind": "module"
+            }
+        ]
+    },
+    "coverage": {
+        "count": 0,
+        "status": "low",
+        "files": [
+            {
+                "filePath": "e2e/src/app.po.ts",
+                "type": "class",
+                "linktype": "classe",
+                "name": "AppPage",
+                "coveragePercent": 0,
+                "coverageCount": "0/3",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/app.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "AppComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/2",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/auth-service/auth.service.ts",
+                "type": "injectable",
+                "linktype": "injectable",
+                "name": "AuthService",
+                "coveragePercent": 0,
+                "coverageCount": "0/5",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/auth-service/auth.service.ts",
+                "type": "interface",
+                "linktype": "interface",
+                "name": "AuthResponseData",
+                "coveragePercent": 0,
+                "coverageCount": "0/8",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/log-in/log-in.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "LogInComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/13",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/loading-spinner.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "LoadingSpinnerComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/sign-up/sign-up.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "SignUpComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/17",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/welcome/welcome.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "WelcomeComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/6",
+                "status": "low"
+            },
+            {
+                "filePath": "src/environments/environment.prod.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "environment",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/environments/environment.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "environment",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/0-SignUp.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Backgrounds",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/0-SignUp.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Default",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/0-SignUp.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "defaultValue",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/0-SignUp.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "defaultValue1",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/0-SignUp.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "groupId",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/0-SignUp.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "groupID",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/0-SignUp.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "label",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/0-SignUp.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "label1",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/0-SignUp.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Link",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/0-SignUp.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "options",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/0-SignUp.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Submit",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/1-LogIn.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Default",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/1-LogIn.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Link",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/1-LogIn.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Submit",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/test.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "context",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/test.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "require",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            }
+        ]
+    }
+}
