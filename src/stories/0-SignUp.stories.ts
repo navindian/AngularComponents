@@ -1,4 +1,4 @@
-import { BrowserModule } from "@angular/platform-browser";
+import { BrowserModule, Meta } from "@angular/platform-browser";
 import { WelcomeComponent } from "../app/welcome/welcome.component";
 import { LogInComponent } from "../app/log-in/log-in.component";
 import { LoadingSpinnerComponent } from "../app/shared/loading-spinner.component";
@@ -10,7 +10,6 @@ import { AppRoutingModule } from "../app/app.routing.module";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { APP_BASE_HREF } from "@angular/common";
 import { withA11y } from "@storybook/addon-a11y";
-import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
 import {action} from '@storybook/addon-actions';
 import { withKnobs, text, boolean, date, radios } from '@storybook/addon-knobs';
 import { linkTo } from "@storybook/addon-links";
@@ -65,11 +64,7 @@ export default {
     viewport: {
       viewports: INITIAL_VIEWPORTS,
       defaultViewport: 'iphonex'
-    },
-    backgrounds: [
-      { name: 'twitter', value: '#00aced', default: true },
-      { name: 'facebook', value: '#3b5998' },
-    ]
+    }
   },  
   providers: [AuthService, { provide: APP_BASE_HREF, useValue: "/" }]
 };
@@ -98,6 +93,7 @@ export const Submit = () => ({
         }
 });
 
+// Click on the Register button to see some changes in the actions tab
 export const Link = () => ({
   component: SignUpComponent,
   props: {
@@ -110,23 +106,3 @@ export const Link = () => ({
             loginEvent: linkTo('Login Component')
         }
 });
-
-export const Backgrounds = () => ({
-  component: SignUpComponent,
-  props: {
-            name: text('Name', 'Sanket', 'General'),
-            email: text('Email', 'sanket@infy.com', 'General'),
-            date: date(label, defaultValue, groupID),
-            password: text('Password', 'sanket123', 'General'),
-            gender: radios(label1, options, defaultValue1, groupId),
-  }
-});
-
-Backgrounds.story = {
-  parameters: {
-    backgrounds: [
-      { name: 'twitter', value: '#00aced', default: true },
-      { name: 'facebook', value: '#3b5998' },
-    ],
-  }
-}

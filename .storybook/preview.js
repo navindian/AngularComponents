@@ -12,8 +12,4 @@ addParameters({
     viewports: INITIAL_VIEWPORTS, 
     defaultViewport: 'iphone6' // newViewports would be an ViewportMap. (see below for examples)
   },
-  backgrounds: [
-      { name: 'twitter', value: '#00aced', default: true },
-      { name: 'facebook', value: '#3b5998' },
-  ],
 });

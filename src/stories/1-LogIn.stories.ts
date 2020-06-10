@@ -47,11 +47,7 @@ export default {
     viewport: {
       viewports: MINIMAL_VIEWPORTS,
       defaultViewport: 'tablet'
-    },
-    backgrounds: [
-      { name: 'twitter', value: '#00aced', default: true },
-      { name: 'facebook', value: '#3b5998' },
-    ]
+    }
   },
   providers: [ AuthService, { provide: APP_BASE_HREF, useValue: "/" } ]
 };
@@ -73,6 +69,7 @@ export const Submit = () => ({
   }
 });
 
+// Click on the login button to see some changes in the actions tab
 export const Link = () => ({
   component: LogInComponent,
   props: {

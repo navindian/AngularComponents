@@ -839,14 +839,6 @@
     "miscellaneous": {
         "variables": [
             {
-                "name": "Backgrounds",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/stories/0-SignUp.stories.ts",
-                "type": "",
-                "defaultValue": "() => ({\r\n  component: SignUpComponent,\r\n  props: {\r\n            name: text('Name', 'Sanket', 'General'),\r\n            email: text('Email', 'sanket@infy.com', 'General'),\r\n            date: date(label, defaultValue, groupID),\r\n            password: text('Password', 'sanket123', 'General'),\r\n            gender: radios(label1, options, defaultValue1, groupId),\r\n  }\r\n})"
-            },
-            {
                 "name": "context",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -986,15 +978,24 @@
         "typealiases": [],
         "enumerations": [],
         "groupedVariables": {
-            "src/stories/0-SignUp.stories.ts": [
+            "src/test.ts": [
                 {
-                    "name": "Backgrounds",
+                    "name": "context",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "src/stories/0-SignUp.stories.ts",
+                    "file": "src/test.ts",
                     "type": "",
-                    "defaultValue": "() => ({\r\n  component: SignUpComponent,\r\n  props: {\r\n            name: text('Name', 'Sanket', 'General'),\r\n            email: text('Email', 'sanket@infy.com', 'General'),\r\n            date: date(label, defaultValue, groupID),\r\n            password: text('Password', 'sanket123', 'General'),\r\n            gender: radios(label1, options, defaultValue1, groupId),\r\n  }\r\n})"
+                    "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)"
                 },
+                {
+                    "name": "require",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/test.ts",
+                    "type": "any"
+                }
+            ],
+            "src/stories/0-SignUp.stories.ts": [
                 {
                     "name": "Default",
                     "ctype": "miscellaneous",
@@ -1074,23 +1075,6 @@
                     "file": "src/stories/0-SignUp.stories.ts",
                     "type": "",
                     "defaultValue": "() => ({\r\n  component: SignUpComponent,\r\n  props: {\r\n            name: text('Name', 'Sanket', 'General'),\r\n            email: text('Email', 'sanket@infy.com', 'General'),\r\n            date: date(label, defaultValue, groupID),\r\n            password: text('Password', 'sanket123', 'General'),\r\n            gender: radios(label1, options, defaultValue1, groupId),\r\n            signUpEvent: action('Sign Up Attempted')\r\n        }\r\n})"
-                }
-            ],
-            "src/test.ts": [
-                {
-                    "name": "context",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/test.ts",
-                    "type": "",
-                    "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)"
-                },
-                {
-                    "name": "require",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/test.ts",
-                    "type": "any"
                 }
             ],
             "src/stories/1-LogIn.stories.ts": [
@@ -1271,16 +1255,6 @@
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
                 "name": "environment",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "src/stories/0-SignUp.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "Backgrounds",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"
