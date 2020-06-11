@@ -23,20 +23,6 @@ import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
 import * as markdown from "./notes/sign-up.readme.md";
 import { RouterModule } from "@angular/router";
 
-// Data for dates
-const label = 'DOB';
-const defaultValue = new Date('Jan 20 1996');
-const groupID = 'General'
-
-// Data for gender
-const label1 = 'Gender';
-const options = {
-  Male: 'male',
-  Female: 'female',
-  };
-const defaultValue1 = 'male';
-const groupId = 'General';
-
 export default {
   title: 'SignUp Component',
   decorators: [ 
@@ -68,6 +54,20 @@ export default {
   },  
   providers: [AuthService, { provide: APP_BASE_HREF, useValue: "/" }]
 };
+
+// Data for dates
+const label = 'DOB';
+const defaultValue = new Date('Jan 20 1996');
+const groupID = 'General'
+
+// Data for gender
+const label1 = 'Gender';
+const options = {
+  Male: 'Male',
+  Female: 'Female',
+  };
+const defaultValue1 = 'male';
+const groupId = 'General';
 
 export const Default = () => ({
   component: SignUpComponent,

@@ -19,7 +19,7 @@ export class SignUpComponent implements OnInit {
 
   @Input() date:Date;
 
-  @Input() gender: string;
+  @Input() g: string;
 
   @Output() signUpEvent: EventEmitter <string> = new EventEmitter();
 

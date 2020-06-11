@@ -69,13 +69,15 @@
 
           <div>
             <label for="gender">Gender</label>
-            <div class="radio" *ngFor="let gender of genders">
+            <div class="radio" *ngFor="let g of genders">
               <label>
                 <input
                   type="radio"
-                  value="{{gender}}"
+                  value="g"
+                  [checked]="g===gender"
                   formControlName="gender"
-                />{{ gender }}<i class="fab fa-facebook-square"></i>
+                  name="gender"
+                />{{g}}<i class="fab fa-facebook-square"></i>
               </label>
             </div>
           </div>
