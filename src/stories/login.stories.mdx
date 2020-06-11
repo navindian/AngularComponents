@@ -1,0 +1,124 @@
+import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
+import { BrowserModule } from "@angular/platform-browser";
+import { WelcomeComponent } from "../app/welcome/welcome.component";
+import { LogInComponent } from "../app/log-in/log-in.component";
+import { LoadingSpinnerComponent } from "../app/shared/loading-spinner.component";
+import { AuthService } from "../app/auth-service/auth.service";
+import { SignUpComponent } from "../app/sign-up/sign-up.component";
+import { HttpClientModule } from "@angular/common/http";
+import { moduleMetadata } from "@storybook/angular";
+import { AppRoutingModule } from "../app/app.routing.module";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { APP_BASE_HREF } from "@angular/common";
+import { withA11y } from "@storybook/addon-a11y";
+import { withKnobs, text, boolean } from '@storybook/addon-knobs';
+import { action } from '@storybook/addon-actions';
+import { linkTo } from "@storybook/addon-links";
+import { MINIMAL_VIEWPORTS } from '@storybook/addon-viewport';
+
+<Meta title="MDX/Login" decorators={[
+    withA11y,
+    withKnobs,
+    moduleMetadata({
+      imports: [
+                HttpClientModule,
+                AppRoutingModule,
+                ReactiveFormsModule,
+                FormsModule,
+                BrowserModule
+              ],
+              declarations: [
+                SignUpComponent,
+                LoadingSpinnerComponent,
+                LogInComponent,
+                WelcomeComponent
+              ],
+              providers: [AuthService, { provide: APP_BASE_HREF, useValue: "/" }]
+    }),    
+]} parameters={{
+    component: LogInComponent,
+    withKnobs,
+    viewport: {
+      viewports: MINIMAL_VIEWPORTS,
+      defaultViewport: 'nexus5x'
+    }
+}}/>
+
+# Login Component 
+
+A login component has been created which allows the users to login by providing their credentials.
+This file contains the complete documentation of the login component. All the stories have been rendered 
+in the mobile format by default.
+
+## MDX
+
+Stotybook Docs allows you to mix stories and documentation in 
+[MDX Format](https://mdxjs.com/)
+
+MDX Combines Marksown and JSX.
+
+## ComponentMeta SB5 Equivalent
+
+This is roughly equivalent to SB5's `storiesOf` :
+
+```
+storiesOf('MDX|Login',module)
+    .addParameter({component: LogInComponent})
+
+```
+
+## Stories
+
+### Default
+
+This is the default story. In this story the users can take a look at the overall
+appearance of the login component.
+
+<Preview>
+  <Story name="Default">{{
+    component: LogInComponent,
+    props:{
+      email: text('Email','sanket@infy.com','General'),
+      password: text('Password', 'sanket123','General')
+    },
+    }}    
+  </Story>
+</Preview>
+
+### Submit
+
+This is the submit story. Clicking on the login button will initiate an action 
+which can be seen in the actions tab.
+
+<Preview>
+  <Story name="Submit">{{
+    component: LogInComponent,
+    props:{
+      email: text('Email','sanket@infy.com','General'),
+      password: text('Password', 'sanket123','General'),
+      loginEvent: action('Login Attempted')
+    },
+    }}    
+  </Story>
+</Preview>
+
+
+### Link
+
+This is the link story. Clicking on SignUp will navigate the user to the Sign Up component.
+
+<Preview>
+  <Story name="Link">{{
+    component: LogInComponent,
+    props:{
+      email: text('Email','sanket@infy.com','General'),
+      password: text('Password', 'sanket123','General'),
+      registerEvent: linkTo('SignUp Component')
+    },
+    }}    
+  </Story>
+</Preview>
+
+
+
+

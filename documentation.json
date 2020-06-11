@@ -1,5 +1,53 @@
 {
-    "pipes": [],
+    "pipes": [
+        {
+            "name": "DatePipe",
+            "id": "pipe-DatePipe-50298fdfe3f81f422cf03c84b97c6d91",
+            "file": "src/app/sign-up/date.pipe.ts",
+            "type": "pipe",
+            "description": "",
+            "properties": [],
+            "methods": [
+                {
+                    "name": "transform",
+                    "args": [
+                        {
+                            "name": "value",
+                            "type": "any"
+                        },
+                        {
+                            "name": "args",
+                            "type": "any",
+                            "dotDotDotToken": true
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "any",
+                    "typeParameters": [],
+                    "line": 8,
+                    "jsdoctags": [
+                        {
+                            "name": "value",
+                            "type": "any",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        },
+                        {
+                            "name": "args",
+                            "type": "any",
+                            "dotDotDotToken": true,
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "ngname": "datecustom",
+            "sourceCode": "import { Pipe, PipeTransform } from '@angular/core';\n\n@Pipe({\n  name: 'datecustom'\n})\nexport class DatePipe implements PipeTransform {\n\n  transform(value: any, ...args: any): any {\n    let date:String = value.toDateString().format('mm/dd/yyyy');\n    return date;\n  }\n\n}\n"
+        }
+    ],
     "interfaces": [
         {
             "name": "AuthResponseData",
@@ -270,7 +318,7 @@
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<router-outlet></router-outlet>\r\n"
+            "templateData": "<a routerLink='[\"/login\"]'>Login</a>\r\n<a routerLink='[\"/signup\"]'>Register</a>\r\n<router-outlet></router-outlet>\r\n"
         },
         {
             "name": "LoadingSpinnerComponent",
@@ -463,7 +511,7 @@
         },
         {
             "name": "SignUpComponent",
-            "id": "component-SignUpComponent-08dd2ba2de775fc41267b22aae6882b1",
+            "id": "component-SignUpComponent-054f76969f184a003a25b060fe1af2ce",
             "file": "src/app/sign-up/sign-up.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -480,11 +528,6 @@
             ],
             "viewProviders": [],
             "inputsClass": [
-                {
-                    "name": "date",
-                    "line": 20,
-                    "type": "Date"
-                },
                 {
                     "name": "email",
                     "line": 16,
@@ -592,7 +635,7 @@
             "description": "",
             "rawdescription": "",
             "type": "component",
-            "sourceCode": "import { Component, OnInit, Input, Output, EventEmitter } from \"@angular/core\";\r\nimport { FormGroup, FormControl, Validators } from \"@angular/forms\";\r\nimport { AuthService } from \"../auth-service/auth.service\";\r\nimport { Router } from \"@angular/router\";\r\nimport RadiosType from \"@storybook/addon-knobs/dist/components/types/Radio\";\r\n\r\n@Component({\r\n  selector: \"app-sign-up\",\r\n  templateUrl: \"./sign-up.component.html\",\r\n  styleUrls: [\"./sign-up.component.css\"],\r\n})\r\nexport class SignUpComponent implements OnInit {\r\n\r\n  @Input() name: string;\r\n\r\n  @Input() email: string;\r\n\r\n  @Input() password: string;\r\n\r\n  @Input() date: Date;\r\n\r\n  @Input() gender: string;\r\n\r\n  @Output() signUpEvent: EventEmitter <string> = new EventEmitter();\r\n\r\n  @Output() loginEvent: EventEmitter<string> = new EventEmitter();\r\n\r\n  SignUp() {\r\n    this.signUpEvent.emit('Registration Successfull');\r\n  };\r\n\r\n  login() {\r\n    this.loginEvent.emit('Navigate to login component');\r\n  };\r\n\r\n  genders = [\"Male\", \"Female\"];\r\n  signUpForm: FormGroup;\r\n  isLoading: Boolean = false;\r\n  error: string = null;\r\n  constructor(private authService: AuthService, private router: Router) {}\r\n\r\n  ngOnInit() {\r\n    this.signUpForm = new FormGroup({\r\n      userName: new FormControl(null, Validators.required),\r\n      email: new FormControl(null, [Validators.required, Validators.email]),\r\n      password: new FormControl(null, [\r\n        Validators.required,\r\n        Validators.minLength(8),\r\n      ]),\r\n      dateOfBirth: new FormControl(null, Validators.required),\r\n      gender: new FormControl(\"Male\"),\r\n    });\r\n  }\r\n  onSubmit() {\r\n    if (!this.signUpForm.valid) {\r\n      return;\r\n    }\r\n    const email = this.signUpForm.value.email;\r\n    const password = this.signUpForm.value.password;\r\n    //console.log(this.signUpForm.value.userName);\r\n    this.isLoading = true;\r\n    this.authService.signup(email, password).subscribe(\r\n      (data) => {\r\n        console.log(data);\r\n        this.isLoading = false;\r\n        this.router.navigate([\"/welcome\", \"signedUp\"]);\r\n      },\r\n      (errorMessage: any) => {\r\n        console.log(errorMessage);\r\n        this.error = errorMessage;\r\n        this.isLoading = false;\r\n      }\r\n    );\r\n\r\n    this.signUpForm.reset();\r\n  }\r\n}\r\n",
+            "sourceCode": "import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from \"@angular/core\";\r\nimport { FormGroup, FormControl, Validators } from \"@angular/forms\";\r\nimport { AuthService } from \"../auth-service/auth.service\";\r\nimport { Router } from \"@angular/router\";\r\n\r\n\r\n@Component({\r\n  selector: \"app-sign-up\",\r\n  templateUrl: \"./sign-up.component.html\",\r\n  styleUrls: [\"./sign-up.component.css\"],\r\n})\r\nexport class SignUpComponent implements OnInit {\r\n\r\n  @Input() name: string;\r\n\r\n  @Input() email: string;\r\n\r\n  @Input() password: string;\r\n\r\n \r\n\r\n  @Input() gender: string;\r\n\r\n  @Output() signUpEvent: EventEmitter <string> = new EventEmitter();\r\n\r\n  @Output() loginEvent: EventEmitter<string> = new EventEmitter();\r\n\r\n  SignUp() {\r\n    this.signUpEvent.emit('Registration Successfull');\r\n  };\r\n\r\n  login() {\r\n    this.loginEvent.emit('Navigate to login component');\r\n  };\r\n\r\n  genders = [\"Male\", \"Female\"];\r\n  signUpForm: FormGroup;\r\n  isLoading: Boolean = false;\r\n  error: string = null;\r\n  constructor(private authService: AuthService, private router: Router) {}\r\n\r\n  ngOnInit() {\r\n    this.signUpForm = new FormGroup({\r\n      userName: new FormControl(null, Validators.required),\r\n      email: new FormControl(null, [Validators.required, Validators.email]),\r\n      password: new FormControl(null, [\r\n        Validators.required,\r\n        Validators.minLength(8),\r\n      ]),\r\n      dateOfBirth: new FormControl(null, Validators.required),\r\n      gender: new FormControl(\"Male\"),\r\n    });\r\n  }\r\n  onSubmit() {\r\n    if (!this.signUpForm.valid) {\r\n      return;\r\n    }\r\n    const email = this.signUpForm.value.email;\r\n    const password = this.signUpForm.value.password;\r\n    //console.log(this.signUpForm.value.userName);\r\n    this.isLoading = true;\r\n    this.authService.signup(email, password).subscribe(\r\n      (data) => {\r\n        console.log(data);\r\n        this.isLoading = false;\r\n        this.router.navigate([\"/welcome\", \"signedUp\"]);\r\n      },\r\n      (errorMessage: any) => {\r\n        console.log(errorMessage);\r\n        this.error = errorMessage;\r\n        this.isLoading = false;\r\n      }\r\n    );\r\n\r\n    this.signUpForm.reset();\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -635,7 +678,7 @@
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<div class=\"container\">\r\n  <div class=\"row\">\r\n    <div class=\"col-xs-12 col-md-4 col-md-offset-4\">\r\n      <div class=\"alert alert-danger\" *ngIf=\"error\">\r\n        <p>{{ error }}</p>\r\n      </div>\r\n      <div *ngIf=\"isLoading\" style=\"text-align: center;\">\r\n        <app-loading-spinner></app-loading-spinner>\r\n      </div>\r\n      <div *ngIf=\"!isLoading\">\r\n        <h1 style=\"text-align: center;\" class=\"text-primary\">Sign Up</h1>\r\n        <form [formGroup]=\"signUpForm\" (ngSubmit)=\"onSubmit()\">\r\n          <div class=\"form-group\">\r\n            <label for=\"username\">Name</label>\r\n            <input\r\n              type=\"text\"\r\n              id=\"username\"\r\n              class=\"form-control\"\r\n              formControlName=\"userName\"\r\n              value={{name}}\r\n            />\r\n          </div>\r\n          <div class=\"form-group\">\r\n            <label for=\"email\" mt-8>Email</label>\r\n            <input\r\n              type=\"text\"\r\n              id=\"email\"\r\n              class=\"form-control\"\r\n              formControlName=\"email\"\r\n              value={{email}}\r\n            />\r\n            <span\r\n              *ngIf=\"\r\n                !signUpForm.get('email').valid &&\r\n                signUpForm.get('email').touched\r\n              \"\r\n              class=\"help-block\"\r\n              >Please enter a valid email!</span\r\n            >\r\n          </div>\r\n          <div class=\"form-group\">\r\n            <label for=\"dateOfBirth\">Date Of Birth</label>\r\n            <input\r\n              type=\"date\"\r\n              id=\"dateOfBirth\"\r\n              class=\"form-control\"\r\n              formControlName=\"dateOfBirth\"\r\n              value={{date}}\r\n            />\r\n          </div>\r\n          <div class=\"form-group\">\r\n            <label for=\"password\">Password</label>\r\n            <input\r\n              type=\"password\"\r\n              id=\"password\"\r\n              class=\"form-control\"\r\n              formControlName=\"password\"\r\n              value={{password}}\r\n            />\r\n            <span\r\n              *ngIf=\"\r\n                !signUpForm.get('password').valid &&\r\n                signUpForm.get('password').touched\r\n              \"\r\n              class=\"help-block\"\r\n              >Password must of minimum 8 characters!</span\r\n            >\r\n          </div>\r\n\r\n          <div>\r\n            <label for=\"gender\">Gender</label>\r\n            <div class=\"radio\" *ngFor=\"let gender of genders\">\r\n              <label>\r\n                <input\r\n                  type=\"radio\"\r\n                  [value]=\"gender\"\r\n                  formControlName=\"gender\"\r\n                />{{ gender }}<i class=\"fab fa-facebook-square\"></i>\r\n              </label>\r\n            </div>\r\n          </div>\r\n          <button\r\n            class=\"btn btn-primary btn-block\"\r\n            type=\"submit\"\r\n            style=\"cursor: pointer;\"\r\n            (click)=\"SignUp()\"\r\n          >\r\n            Register\r\n          </button>\r\n        </form>\r\n        <p style=\"text-align: center;\">\r\n          Already have an account?<a [routerLink]=\"['/login']\" (click)=\"login()\">Log In</a>\r\n        </p>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
+            "templateData": "<div class=\"container\">\r\n  <div class=\"row\">\r\n    <div class=\"col-xs-12 col-md-4 col-md-offset-4\">\r\n      <div class=\"alert alert-danger\" *ngIf=\"error\">\r\n        <p>{{ error }}</p>\r\n      </div>\r\n      <div *ngIf=\"isLoading\" style=\"text-align: center;\">\r\n        <app-loading-spinner></app-loading-spinner>\r\n      </div>\r\n      <div *ngIf=\"!isLoading\">\r\n        <h1 style=\"text-align: center;\" class=\"text-primary\">Sign Up</h1>\r\n        <form [formGroup]=\"signUpForm\" (ngSubmit)=\"onSubmit()\">\r\n          <div class=\"form-group\">\r\n            <label for=\"username\">Name</label>\r\n            <input\r\n              type=\"text\"\r\n              id=\"username\"\r\n              class=\"form-control\"\r\n              formControlName=\"userName\"\r\n              value={{name}}\r\n            />\r\n          </div>\r\n          <div class=\"form-group\">\r\n            <label for=\"email\" mt-8>Email</label>\r\n            <input\r\n              type=\"text\"\r\n              id=\"email\"\r\n              class=\"form-control\"\r\n              formControlName=\"email\"\r\n              value={{email}}\r\n            />\r\n            <span\r\n              *ngIf=\"\r\n                !signUpForm.get('email').valid &&\r\n                signUpForm.get('email').touched\r\n              \"\r\n              class=\"help-block\"\r\n              >Please enter a valid email!</span\r\n            >\r\n          </div>\r\n          <div class=\"form-group\">\r\n            <label for=\"dateOfBirth\">Date Of Birth</label>\r\n            <input \r\n            #daypicker\r\n            id=\"dateOfBirth\"\r\n            placeholder=\"Select a date\"\r\n            class=\"form-control\"\r\n            formControlName=\"dateOfBirth\"\r\n            [value]={{date}}>\r\n          <div class=\"form-group\">\r\n            <label for=\"password\">Password</label>\r\n            <input\r\n              type=\"password\"\r\n              id=\"password\"\r\n              class=\"form-control\"\r\n              formControlName=\"password\"\r\n              value={{password}}\r\n            />\r\n            <span\r\n              *ngIf=\"\r\n                !signUpForm.get('password').valid &&\r\n                signUpForm.get('password').touched\r\n              \"\r\n              class=\"help-block\"\r\n              >Password must of minimum 8 characters!</span\r\n            >\r\n          </div>\r\n\r\n          <div>\r\n            <label for=\"gender\">Gender</label>\r\n            <div class=\"radio\" *ngFor=\"let gender of genders\">\r\n              <label>\r\n                <input\r\n                  type=\"radio\"\r\n                  [value]=\"gender\"\r\n                  formControlName=\"gender\"\r\n                />{{ gender }}<i class=\"fab fa-facebook-square\"></i>\r\n              </label>\r\n            </div>\r\n          </div>\r\n          <button\r\n            class=\"btn btn-primary btn-block\"\r\n            type=\"submit\"\r\n            style=\"cursor: pointer;\"\r\n            (click)=\"SignUp()\"\r\n          >\r\n            Register\r\n          </button>\r\n        </form>\r\n        <p style=\"text-align: center;\">\r\n          Already have an account?<a [routerLink]=\"['/login']\" (click)=\"login()\">Log In</a>\r\n        </p>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
         },
         {
             "name": "WelcomeComponent",
@@ -765,6 +808,9 @@
                     "elements": [
                         {
                             "name": "AppComponent"
+                        },
+                        {
+                            "name": "DatePipe"
                         },
                         {
                             "name": "LoadingSpinnerComponent"
@@ -1222,12 +1268,21 @@
                 "status": "low"
             },
             {
+                "filePath": "src/app/sign-up/date.pipe.ts",
+                "type": "pipe",
+                "linktype": "pipe",
+                "name": "DatePipe",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
                 "filePath": "src/app/sign-up/sign-up.component.ts",
                 "type": "component",
                 "linktype": "component",
                 "name": "SignUpComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/17",
+                "coverageCount": "0/16",
                 "status": "low"
             },
             {

@@ -1,0 +1,126 @@
+import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
+import { BrowserModule } from "@angular/platform-browser";
+import { WelcomeComponent } from "../app/welcome/welcome.component";
+import { LogInComponent } from "../app/log-in/log-in.component";
+import { LoadingSpinnerComponent } from "../app/shared/loading-spinner.component";
+import { AuthService } from "../app/auth-service/auth.service";
+import { SignUpComponent } from "../app/sign-up/sign-up.component";
+import { HttpClientModule } from "@angular/common/http";
+import { moduleMetadata } from "@storybook/angular";
+import { AppRoutingModule } from "../app/app.routing.module";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { APP_BASE_HREF } from "@angular/common";
+import { withA11y } from "@storybook/addon-a11y";
+import { withKnobs, text, boolean, date, radios } from '@storybook/addon-knobs';
+import { action } from '@storybook/addon-actions';
+import { linkTo } from "@storybook/addon-links";
+import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
+
+<Meta title="MDX/Sign Up" decorators={[
+    withA11y,
+    withKnobs,
+    moduleMetadata({
+      imports: [
+                HttpClientModule,
+                AppRoutingModule,
+                ReactiveFormsModule,
+                FormsModule,
+                BrowserModule
+              ],
+              declarations: [
+                SignUpComponent,
+                LoadingSpinnerComponent,
+                LogInComponent,
+                WelcomeComponent
+              ],
+              providers: [AuthService, { provide: APP_BASE_HREF, useValue: "/" }]
+    }),    
+]} parameters={{
+    component: SignUpComponent,
+    withKnobs,
+    viewport: {
+      viewports: INITIAL_VIEWPORTS,
+      defaultViewport: 'nexus5x'
+    }
+}}/>
+
+# Sign Up Component 
+
+A sign up component has been created which allows the users to sign up by providing their credentials.
+This file contains the complete documentation of the sign up component. All the stories have been rendered 
+in the mobile format by default.
+
+## MDX
+
+Stotybook Docs allows you to mix stories and documentation in 
+[MDX Format](https://mdxjs.com/)
+
+MDX Combines Marksown and JSX.
+
+## ComponentMeta SB5 Equivalent
+
+This is roughly equivalent to SB5's `storiesOf` :
+
+```
+storiesOf('MDX|Login',module)
+    .addParameter({component: SignUpComponent})
+
+```
+
+## Stories
+
+### Default
+
+This is the default story. In this story the users can take a look at the overall
+appearance of the login component.
+
+<Preview>
+  <Story name="Default">{{
+    component: SignUpComponent,
+    props:{
+       name: text('Name', 'Sanket', 'General'),
+            email: text('Email', 'sanket@infy.com', 'General'),
+            date: date('DOB', new Date('Jan 20 1996'), 'General'),
+            password: text('Password', 'sanket123', 'General'),
+    },
+    }}    
+  </Story>
+</Preview>
+
+### Submit
+
+This is the submit story. Clicking on the register button will initiate an action 
+which can be seen in the actions tab.
+
+<Preview>
+  <Story name="Submit">{{
+    component: SignUpComponent,
+    props:{
+      name: text('Name', 'Sanket', 'General'),
+            email: text('Email', 'sanket@infy.com', 'General'),
+            date: date('DOB', new Date('Jan 20 1996'), 'General'),
+            password: text('Password', 'sanket123', 'General'),
+            signUpEvent: action('Sign Up Attempted')
+    },
+    }}    
+  </Story>
+</Preview>
+
+### Link
+
+This is the link story. Clicking on Log In will navigate the user to the Login component.
+
+<Preview>
+  <Story name="Link">{{
+    component: SignUpComponent,
+    props:{
+        name: text('Name', 'Sanket', 'General'),
+        email: text('Email', 'sanket@infy.com', 'General'),
+        date: date('DOB', new Date('Jan 20 1996'), 'General'),
+        password: text('Password', 'sanket123', 'General'),
+        signUpEvent: action('Sign Up Attempted'),
+        loginEvent: linkTo('Login Component')
+    },
+    }}    
+  </Story>
+</Preview>

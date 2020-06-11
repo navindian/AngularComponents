@@ -1,8 +1,8 @@
-import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { AuthService } from "../auth-service/auth.service";
 import { Router } from "@angular/router";
-import RadiosType from "@storybook/addon-knobs/dist/components/types/Radio";
+
 
 @Component({
   selector: "app-sign-up",
@@ -17,7 +17,7 @@ export class SignUpComponent implements OnInit {
 
   @Input() password: string;
 
-  @Input() date: Date;
+  @Input() date:Date;
 
   @Input() gender: string;
 
