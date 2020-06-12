@@ -901,17 +901,17 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/stories/0-SignUp.stories.ts",
+                "file": "src/stories/1-LogIn.stories.ts",
                 "type": "",
-                "defaultValue": "() => ({\r\n  component: SignUpComponent,\r\n  props: {\r\n            name: text('Name', 'Sanket', 'General'),\r\n            email: text('Email', 'sanket@infy.com', 'General'),\r\n            date: date(label, defaultValue, groupID),\r\n            password: text('Password', 'sanket123', 'General'),\r\n            gender: radios(label1, options, defaultValue1, groupId)\r\n        }\r\n\r\n})"
+                "defaultValue": "() => ({\r\n  component: LogInComponent,\r\n  props: {\r\n    email: text('Email','sanket@infy.com','General'),\r\n    password: text('Password', 'sanket123','General')\r\n  }\r\n})"
             },
             {
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/stories/1-LogIn.stories.ts",
+                "file": "src/stories/0-SignUp.stories.ts",
                 "type": "",
-                "defaultValue": "() => ({\r\n  component: LogInComponent,\r\n  props: {\r\n    email: text('Email','sanket@infy.com','General'),\r\n    password: text('Password', 'sanket123','General')\r\n  }\r\n})"
+                "defaultValue": "() => ({\r\n  component: SignUpComponent,\r\n  props: {\r\n            name: text('Name', 'Sanket', 'General'),\r\n            email: text('Email', 'sanket@infy.com', 'General'),\r\n            date: date(label, defaultValue, groupID),\r\n            password: text('Password', 'sanket123', 'General'),\r\n            g: radios(label1, options, defaultValue1, groupId)\r\n        }\r\n\r\n})"
             },
             {
                 "name": "defaultValue",
@@ -981,17 +981,17 @@
                 "name": "Link",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/stories/0-SignUp.stories.ts",
+                "file": "src/stories/1-LogIn.stories.ts",
                 "type": "",
-                "defaultValue": "() => ({\r\n  component: SignUpComponent,\r\n  props: {\r\n            name: text('Name', 'Sanket', 'General'),\r\n            email: text('Email', 'sanket@infy.com', 'General'),\r\n            date: date(label, defaultValue, groupID),\r\n            password: text('Password', 'sanket123', 'General'),\r\n            gender: radios(label1, options, defaultValue1, groupId),\r\n            signUpEvent: action('Sign Up Attempted'),\r\n            loginEvent: linkTo('Login Component')\r\n        }\r\n})"
+                "defaultValue": "() => ({\r\n  component: LogInComponent,\r\n  props: {\r\n    email: text('Email','sanket@infy.com','General'),\r\n    password: text('Password', 'sanket123','General'),\r\n    registerEvent: linkTo('SignUp Component')\r\n  }\r\n})"
             },
             {
                 "name": "Link",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/stories/1-LogIn.stories.ts",
+                "file": "src/stories/0-SignUp.stories.ts",
                 "type": "",
-                "defaultValue": "() => ({\r\n  component: LogInComponent,\r\n  props: {\r\n    email: text('Email','sanket@infy.com','General'),\r\n    password: text('Password', 'sanket123','General'),\r\n    registerEvent: linkTo('SignUp Component')\r\n  }\r\n})"
+                "defaultValue": "() => ({\r\n  component: SignUpComponent,\r\n  props: {\r\n            name: text('Name', 'Sanket', 'General'),\r\n            email: text('Email', 'sanket@infy.com', 'General'),\r\n            date: date(label, defaultValue, groupID),\r\n            password: text('Password', 'sanket123', 'General'),\r\n            gender: radios(label1, options, defaultValue1, groupId),\r\n            signUpEvent: action('Sign Up Attempted'),\r\n            loginEvent: linkTo('Login Component')\r\n        }\r\n})"
             },
             {
                 "name": "options",
@@ -1012,17 +1012,17 @@
                 "name": "Submit",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/stories/0-SignUp.stories.ts",
+                "file": "src/stories/1-LogIn.stories.ts",
                 "type": "",
-                "defaultValue": "() => ({\r\n  component: SignUpComponent,\r\n  props: {\r\n            name: text('Name', 'Sanket', 'General'),\r\n            email: text('Email', 'sanket@infy.com', 'General'),\r\n            date: date(label, defaultValue, groupID),\r\n            password: text('Password', 'sanket123', 'General'),\r\n            gender: radios(label1, options, defaultValue1, groupId),\r\n            signUpEvent: action('Sign Up Attempted')\r\n        }\r\n})"
+                "defaultValue": "() => ({\r\n  component: LogInComponent,\r\n  props: {\r\n    email: text('Email','sanket@infy.com','General'),\r\n    password: text('Password', 'sanket123','General'),\r\n    loginEvent: action('Login Attempted')\r\n  }\r\n})"
             },
             {
                 "name": "Submit",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/stories/1-LogIn.stories.ts",
+                "file": "src/stories/0-SignUp.stories.ts",
                 "type": "",
-                "defaultValue": "() => ({\r\n  component: LogInComponent,\r\n  props: {\r\n    email: text('Email','sanket@infy.com','General'),\r\n    password: text('Password', 'sanket123','General'),\r\n    loginEvent: action('Login Attempted')\r\n  }\r\n})"
+                "defaultValue": "() => ({\r\n  component: SignUpComponent,\r\n  props: {\r\n            name: text('Name', 'Sanket', 'General'),\r\n            email: text('Email', 'sanket@infy.com', 'General'),\r\n            date: date(label, defaultValue, groupID),\r\n            password: text('Password', 'sanket123', 'General'),\r\n            gender: radios(label1, options, defaultValue1, groupId),\r\n            signUpEvent: action('Sign Up Attempted')\r\n        }\r\n})"
             }
         ],
         "functions": [],
@@ -1046,6 +1046,32 @@
                     "type": "any"
                 }
             ],
+            "src/stories/1-LogIn.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/1-LogIn.stories.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\r\n  component: LogInComponent,\r\n  props: {\r\n    email: text('Email','sanket@infy.com','General'),\r\n    password: text('Password', 'sanket123','General')\r\n  }\r\n})"
+                },
+                {
+                    "name": "Link",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/1-LogIn.stories.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\r\n  component: LogInComponent,\r\n  props: {\r\n    email: text('Email','sanket@infy.com','General'),\r\n    password: text('Password', 'sanket123','General'),\r\n    registerEvent: linkTo('SignUp Component')\r\n  }\r\n})"
+                },
+                {
+                    "name": "Submit",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/1-LogIn.stories.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\r\n  component: LogInComponent,\r\n  props: {\r\n    email: text('Email','sanket@infy.com','General'),\r\n    password: text('Password', 'sanket123','General'),\r\n    loginEvent: action('Login Attempted')\r\n  }\r\n})"
+                }
+            ],
             "src/stories/0-SignUp.stories.ts": [
                 {
                     "name": "Default",
@@ -1053,7 +1079,7 @@
                     "subtype": "variable",
                     "file": "src/stories/0-SignUp.stories.ts",
                     "type": "",
-                    "defaultValue": "() => ({\r\n  component: SignUpComponent,\r\n  props: {\r\n            name: text('Name', 'Sanket', 'General'),\r\n            email: text('Email', 'sanket@infy.com', 'General'),\r\n            date: date(label, defaultValue, groupID),\r\n            password: text('Password', 'sanket123', 'General'),\r\n            gender: radios(label1, options, defaultValue1, groupId)\r\n        }\r\n\r\n})"
+                    "defaultValue": "() => ({\r\n  component: SignUpComponent,\r\n  props: {\r\n            name: text('Name', 'Sanket', 'General'),\r\n            email: text('Email', 'sanket@infy.com', 'General'),\r\n            date: date(label, defaultValue, groupID),\r\n            password: text('Password', 'sanket123', 'General'),\r\n            g: radios(label1, options, defaultValue1, groupId)\r\n        }\r\n\r\n})"
                 },
                 {
                     "name": "defaultValue",
@@ -1126,32 +1152,6 @@
                     "file": "src/stories/0-SignUp.stories.ts",
                     "type": "",
                     "defaultValue": "() => ({\r\n  component: SignUpComponent,\r\n  props: {\r\n            name: text('Name', 'Sanket', 'General'),\r\n            email: text('Email', 'sanket@infy.com', 'General'),\r\n            date: date(label, defaultValue, groupID),\r\n            password: text('Password', 'sanket123', 'General'),\r\n            gender: radios(label1, options, defaultValue1, groupId),\r\n            signUpEvent: action('Sign Up Attempted')\r\n        }\r\n})"
-                }
-            ],
-            "src/stories/1-LogIn.stories.ts": [
-                {
-                    "name": "Default",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/stories/1-LogIn.stories.ts",
-                    "type": "",
-                    "defaultValue": "() => ({\r\n  component: LogInComponent,\r\n  props: {\r\n    email: text('Email','sanket@infy.com','General'),\r\n    password: text('Password', 'sanket123','General')\r\n  }\r\n})"
-                },
-                {
-                    "name": "Link",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/stories/1-LogIn.stories.ts",
-                    "type": "",
-                    "defaultValue": "() => ({\r\n  component: LogInComponent,\r\n  props: {\r\n    email: text('Email','sanket@infy.com','General'),\r\n    password: text('Password', 'sanket123','General'),\r\n    registerEvent: linkTo('SignUp Component')\r\n  }\r\n})"
-                },
-                {
-                    "name": "Submit",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/stories/1-LogIn.stories.ts",
-                    "type": "",
-                    "defaultValue": "() => ({\r\n  component: LogInComponent,\r\n  props: {\r\n    email: text('Email','sanket@infy.com','General'),\r\n    password: text('Password', 'sanket123','General'),\r\n    loginEvent: action('Login Attempted')\r\n  }\r\n})"
                 }
             ],
             "src/environments/environment.prod.ts": [

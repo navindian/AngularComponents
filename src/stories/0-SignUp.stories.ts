@@ -76,7 +76,7 @@ export const Default = () => ({
             email: text('Email', 'sanket@infy.com', 'General'),
             date: date(label, defaultValue, groupID),
             password: text('Password', 'sanket123', 'General'),
-            gender: radios(label1, options, defaultValue1, groupId)
+            g: radios(label1, options, defaultValue1, groupId)
         }
 
 });
@@ -88,7 +88,7 @@ export const Submit = () => ({
             email: text('Email', 'sanket@infy.com', 'General'),
             date: date(label, defaultValue, groupID),
             password: text('Password', 'sanket123', 'General'),
-            gender: radios(label1, options, defaultValue1, groupId),
+            g: radios(label1, options, defaultValue1, groupId),
             signUpEvent: action('Sign Up Attempted')
         }
 });
@@ -101,7 +101,7 @@ export const Link = () => ({
             email: text('Email', 'sanket@infy.com', 'General'),
             date: date(label, defaultValue, groupID),
             password: text('Password', 'sanket123', 'General'),
-            gender: radios(label1, options, defaultValue1, groupId),
+            g: radios(label1, options, defaultValue1, groupId),
             signUpEvent: action('Sign Up Attempted'),
             loginEvent: linkTo('Login Component')
         }
