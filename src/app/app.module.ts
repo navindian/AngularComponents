@@ -8,7 +8,10 @@ import { LogInComponent } from "./log-in/log-in.component";
 import { SignUpComponent } from "./sign-up/sign-up.component";
 import { LoadingSpinnerComponent } from "./shared/loading-spinner.component";
 import { WelcomeComponent } from "./welcome/welcome.component";
-import { DatePipe } from './sign-up/date.pipe';
+import { DatePipe } from "./sign-up/date.pipe";
+import { StepperComponent } from "./stepper/stepper.component";
+import { MaterialDesignModule } from "./material-design/material-design.module";
+import { TabComponent } from './tab/tab.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +21,8 @@ import { DatePipe } from './sign-up/date.pipe';
     LoadingSpinnerComponent,
     WelcomeComponent,
     DatePipe,
+    StepperComponent,
+    TabComponent
   ],
   imports: [
     BrowserModule,
@@ -25,8 +30,11 @@ import { DatePipe } from './sign-up/date.pipe';
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MaterialDesignModule
   ],
   providers: [],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent]
 })
 export class AppModule {}

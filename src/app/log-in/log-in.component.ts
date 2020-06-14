@@ -6,23 +6,23 @@ import { ActivatedRoute, Router } from "@angular/router";
 @Component({
   selector: "app-log-in",
   templateUrl: "./log-in.component.html",
-  styleUrls: ["./log-in.component.css"],
+  styleUrls: ["./log-in.component.css"]
 })
 export class LogInComponent implements OnInit {
   @Input() email: string;
 
   @Input() password: string;
 
-  @Output() loginEvent: EventEmitter <string> = new EventEmitter();
+  @Output() loginEvent: EventEmitter<string> = new EventEmitter();
 
-  @Output() registerEvent: EventEmitter <string> = new EventEmitter();
+  @Output() registerEvent: EventEmitter<string> = new EventEmitter();
 
   login() {
-    this.loginEvent.emit('Login Successfull');
-  };
+    this.loginEvent.emit("Login Successfull");
+  }
 
   register() {
-    this.registerEvent.emit('Navigate to register component');
+    this.registerEvent.emit("Navigate to register component");
   }
 
   signUpForm: FormGroup;
@@ -34,7 +34,7 @@ export class LogInComponent implements OnInit {
   ngOnInit() {
     this.signUpForm = new FormGroup({
       email: new FormControl(null, [Validators.required, Validators.email]),
-      password: new FormControl(null),
+      password: new FormControl(null)
     });
   }
   onSubmit() {
@@ -46,10 +46,11 @@ export class LogInComponent implements OnInit {
     //console.log(this.signUpForm.value.userName);
     this.isLoading = true;
     this.authService.login(email, password).subscribe(
-      (data) => {
+      data => {
         console.log(data);
         this.isLoading = false;
-        this.router.navigate(["/welcome", "loggedIn"]);
+        //this.router.navigate(["/welcome", "loggedIn"]);
+        this.router.navigate(["/tab"]);
       },
       (errorMessage: any) => {
         console.log(errorMessage);

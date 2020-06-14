@@ -1,3 +1,5 @@
+import { TabComponent } from "./../app/tab/tab.component";
+import { StepperComponent } from "./../app/stepper/stepper.component";
 import { BrowserModule, Meta } from "@angular/platform-browser";
 import { WelcomeComponent } from "../app/welcome/welcome.component";
 import { LogInComponent } from "../app/log-in/log-in.component";
@@ -10,10 +12,10 @@ import { AppRoutingModule } from "../app/app.routing.module";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { APP_BASE_HREF } from "@angular/common";
 import { withA11y } from "@storybook/addon-a11y";
-import {action} from '@storybook/addon-actions';
-import { withKnobs, text, boolean, date, radios } from '@storybook/addon-knobs';
+import { action } from "@storybook/addon-actions";
+import { withKnobs, text, boolean, date, radios } from "@storybook/addon-knobs";
 import { linkTo } from "@storybook/addon-links";
-import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
+import { INITIAL_VIEWPORTS } from "@storybook/addon-viewport";
 
 // //@ts-ignore
 // import markDownNotes from "src/app/sign-up/sign-up.component/sign-upreadme.md";
@@ -22,87 +24,91 @@ import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
 //@ts-ignore
 import * as markdown from "./notes/sign-up.readme.md";
 import { RouterModule } from "@angular/router";
+import { MaterialDesignModule } from "src/app/material-design/material-design.module";
 
 export default {
-  title: 'SignUp Component',
-  decorators: [ 
-    withA11y, 
+  title: "SignUp Component",
+  decorators: [
+    withA11y,
     withKnobs,
     moduleMetadata({
       imports: [
-                HttpClientModule,
-                AppRoutingModule,
-                ReactiveFormsModule,
-                FormsModule,
-                BrowserModule],
-              declarations: [
-                SignUpComponent,
-                LoadingSpinnerComponent,
-                LogInComponent,
-                WelcomeComponent
-              ],
-              providers: [AuthService, { provide: APP_BASE_HREF, useValue: "/" }]
-    }) 
+        HttpClientModule,
+        AppRoutingModule,
+        ReactiveFormsModule,
+        FormsModule,
+        BrowserModule,
+        MaterialDesignModule,
+      ],
+      declarations: [
+        SignUpComponent,
+        LoadingSpinnerComponent,
+        LogInComponent,
+        WelcomeComponent,
+        StepperComponent,
+        TabComponent,
+      ],
+      providers: [AuthService, { provide: APP_BASE_HREF, useValue: "/" }],
+    }),
   ],
   parameters: {
-    component: SignUpComponent , 
+    component: SignUpComponent,
     withKnobs,
     viewport: {
       viewports: INITIAL_VIEWPORTS,
-      defaultViewport: 'iphonex'
-    }
-  },  
-  providers: [AuthService, { provide: APP_BASE_HREF, useValue: "/" }]
+      defaultViewport: "iphonex",
+    },
+  },
+  providers: [AuthService, { provide: APP_BASE_HREF, useValue: "/" }],
 };
 
 // Data for dates
-const label = 'DOB';
-const defaultValue = new Date('Jan 20 1996');
-const groupID = 'General'
+const label = "DOB";
+const defaultValue = new Date("Jan 20 1996");
+const groupID = "General";
 
 // Data for gender
-const label1 = 'Gender';
+const label1 = "Gender";
 const options = {
-  Male: 'Male',
-  Female: 'Female',
-  };
-const defaultValue1 = 'male';
-const groupId = 'General';
+  Male: "Male",
+  Female: "Female",
+};
+const defaultValue1 = "male";
+const groupId = "General";
 
 export const Default = () => ({
   component: SignUpComponent,
   props: {
-            name: text('Name', 'Sanket', 'General'),
-            email: text('Email', 'sanket@infy.com', 'General'),
-            date: date(label, defaultValue, groupID),
-            password: text('Password', 'sanket123', 'General'),
-            g: radios(label1, options, defaultValue1, groupId)
-        }
-
+    name: text("Name", "Sanket", "General"),
+    email: text("Email", "sanket@infy.com", "General"),
+    date: date(label, defaultValue, groupID),
+    password: text("Password", "sanket123", "General"),
+    g: radios(label1, options, defaultValue1, groupId),
+  },
 });
 
 export const Submit = () => ({
   component: SignUpComponent,
   props: {
-            name: text('Name', 'Sanket', 'General'),
-            email: text('Email', 'sanket@infy.com', 'General'),
-            date: date(label, defaultValue, groupID),
-            password: text('Password', 'sanket123', 'General'),
-            g: radios(label1, options, defaultValue1, groupId),
-            signUpEvent: action('Sign Up Attempted')
-        }
+    name: text("Name", "Sanket", "General"),
+    email: text("Email", "sanket@infy.com", "General"),
+    date: date(label, defaultValue, groupID),
+    password: text("Password", "sanket123", "General"),
+    g: radios(label1, options, defaultValue1, groupId),
+    signUpEvent: action("Sign Up Attempted"),
+  },
 });
 
 // Click on the Register button to see some changes in the actions tab
 export const Link = () => ({
   component: SignUpComponent,
   props: {
-            name: text('Name', 'Sanket', 'General'),
-            email: text('Email', 'sanket@infy.com', 'General'),
-            date: date(label, defaultValue, groupID),
-            password: text('Password', 'sanket123', 'General'),
-            g: radios(label1, options, defaultValue1, groupId),
-            signUpEvent: action('Sign Up Attempted'),
-            loginEvent: linkTo('Login Component')
-        }
+    name: text("Name", "Sanket", "General"),
+    email: text("Email", "sanket@infy.com", "General"),
+    date: date(label, defaultValue, groupID),
+    password: text("Password", "sanket123", "General"),
+    g: radios(label1, options, defaultValue1, groupId),
+    signUpEvent: action("Sign Up Attempted"),
+    loginEvent: linkTo("Login Component"),
+  },
 });

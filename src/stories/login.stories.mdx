@@ -15,6 +15,9 @@ import { withKnobs, text, boolean } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { linkTo } from "@storybook/addon-links";
 import { MINIMAL_VIEWPORTS } from '@storybook/addon-viewport';
+import { StepperComponent } from "./../app/stepper/stepper.component";
+import { MaterialDesignModule } from "src/app/material-design/material-design.module";
+import { TabComponent } from "./../app/tab/tab.component";
 
 <Meta title="MDX/Login" decorators={[
     withA11y,
@@ -25,13 +28,17 @@ import { MINIMAL_VIEWPORTS } from '@storybook/addon-viewport';
                 AppRoutingModule,
                 ReactiveFormsModule,
                 FormsModule,
-                BrowserModule
+                BrowserModule,
+               MaterialDesignModule
               ],
               declarations: [
                 SignUpComponent,
                 LoadingSpinnerComponent,
                 LogInComponent,
-                WelcomeComponent
+                WelcomeComponent,
+                StepperComponent,
+                TabComponent,
+               
               ],
               providers: [AuthService, { provide: APP_BASE_HREF, useValue: "/" }]
     }),    
@@ -55,7 +62,7 @@ in the mobile format by default.
 Stotybook Docs allows you to mix stories and documentation in 
 [MDX Format](https://mdxjs.com/)
 
-MDX Combines Marksown and JSX.
+MDX Combines Markdown and JSX.
 
 ## ComponentMeta SB5 Equivalent
 
